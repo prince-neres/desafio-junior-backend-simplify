@@ -6,9 +6,8 @@ from sqlalchemy import desc
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from controllers import api
 from app import Config
-from models.task import Task, StatusEnum
+from models.task import Task
 from schemas import TaskSchema
-from services.task_service import *
 
 
 @api.route('/tasks', methods=['GET'])
@@ -44,13 +43,11 @@ def post_task():
     priority = data.get('priority')
 
     try:
-        priority_enum = get_priority_enum(priority)
-
         new_task = Task(user_id=user.get('id'),
                         title=title,
                         description=description,
-                        priority=priority_enum,
-                        status=StatusEnum.PENDING
+                        priority=priority,
+                        status="PENDING"
                         )
         new_task.add_task()
         task_schema = TaskSchema()
@@ -92,8 +89,8 @@ def put_task(id):
     try:
         task.title = title
         task.description = description
-        task.priority = get_priority_enum(priority)
-        task.status = get_status_enum(status)
+        task.priority = priority
+        task.status = status
         task.date_updated = datetime.now()
         task.update_task()
 

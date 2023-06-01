@@ -4,14 +4,14 @@ from enum import Enum
 
 
 class StatusEnum(Enum):
-    PENDING = 'Pendente'
-    COMPLETED = 'Concluída'
+    PENDING = 'PENDING'
+    COMPLETED = 'COMPLETED'
 
 
 class PriorityEnum(Enum):
-    LOW = 'Baixa'
-    NORMAL = 'Média'
-    HIGH = 'Alta'
+    LOW = 'LOW'
+    NORMAL = 'NORMAL'
+    HIGH = 'HIGH'
 
 
 class Task(db.Model):
