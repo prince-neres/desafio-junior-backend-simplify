@@ -26,7 +26,7 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    toast.error("Algum erro aconteceu!");
+    toast.error(error.response?.data?.message);
     if (
       error.response?.status === 401 &&
       error.response?.data?.msg === "Token has expired"

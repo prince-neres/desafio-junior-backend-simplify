@@ -13,8 +13,8 @@ export const login =
   (email: string, password: string) => async (dispatch: AppDispatch) => {
     try {
       dispatch(loginRequest());
-      const { data } = await api.post("/admin/login", {
-        username: email,
+      const { data } = await api.post("/login", {
+        email: email,
         password: password,
       });
       dispatch(loginSuccess(data));
@@ -25,14 +25,20 @@ export const login =
   };
 
 export const register =
-  (fullname: string, email: string, password: string) =>
+  (
+    username: string,
+    email: string,
+    password: string,
+    confirmPassword: string
+  ) =>
   async (dispatch: AppDispatch) => {
     try {
       dispatch(registerRequest());
       const { data } = await api.post("/register", {
-        fullname,
+        username,
         email,
         password,
+        confirm_password: confirmPassword,
       });
       dispatch(registerSuccess(data));
       // eslint-disable-next-line @typescript-eslint/no-explicit-any

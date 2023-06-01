@@ -8,7 +8,7 @@ const getInitialUserState = (): UserType => {
     ? JSON.parse(storedUserState)
     : {
         loading: false,
-        admin: {
+        user: {
           token: "",
           username: "",
           email: "",
@@ -49,16 +49,10 @@ const userSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
-    updateSuccess: (state, action: PayloadAction<UserInfoType>) => {
-      state.error = "";
-      state.loading = false;
-      state.user = action.payload;
-      localStorage.setItem("adminInfo", JSON.stringify(state));
-    },
     logout: (state) => {
       state.user = undefined;
       state.error = undefined;
-      localStorage.removeItem("adminInfo");
+      localStorage.removeItem("userInfo");
     },
   },
 });
@@ -73,6 +67,5 @@ export const {
   registerFail,
   registerRequest,
   registerSuccess,
-  updateSuccess,
 } = userSlice.actions;
 export default userSlice.reducer;
