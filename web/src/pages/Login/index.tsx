@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { login } from "../../store/user/userRequests";
 import { selectUser } from "../../store/user/userSlice";
 import { AppDispatch } from "../../store";
@@ -11,18 +11,11 @@ export default function LoginForm() {
   const [password, setPassword] = useState("");
   const dispatch = useDispatch<AppDispatch>();
   const userInfo = useSelector(selectUser);
-  const navigate = useNavigate();
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     dispatch(login(email, password));
   };
-
-  useEffect(() => {
-    if (userInfo.user?.token) {
-      navigate("/");
-    }
-  }, [navigate, userInfo]);
 
   return (
     <div className="flex flex-grow justify-center	items-center">

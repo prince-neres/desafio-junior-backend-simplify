@@ -12,3 +12,20 @@ export interface UserType {
   loading?: boolean;
   user?: UserInfoType;
 }
+
+export interface TaskType {
+  id: number;
+  title: string;
+  description: string;
+  priority: string;
+  status: string;
+  created_at: string;
+  updated_at: string;
+  user_id: number;
+}
+
+export interface TasksInfoType {
+  error?: string;
+  loading?: boolean;
+  tasks: TaskType[];
+}
