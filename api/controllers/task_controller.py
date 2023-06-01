@@ -53,8 +53,11 @@ def post_task():
                         status=StatusEnum.PENDING
                         )
         new_task.add_task()
+        task_schema = TaskSchema()
+        new_task_json = task_schema.dump(new_task)
 
         response_data = {
+            "task": new_task_json,
             "message": "Tarefa criada com sucesso!",
             "CODE": "SUCCESS"
         }
