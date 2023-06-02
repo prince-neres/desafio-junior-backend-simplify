@@ -6,9 +6,11 @@ import Task from "../../components/Task";
 import { selectUser } from "../../store/user/userSlice";
 import InputAddTask from "../../components/InputAddTask";
 import Loader from "../../components/Loader";
+import { useNavigate } from "react-router-dom";
 
 export default function Tasks() {
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
   const { user } = useSelector(selectUser);
   const { tasks, loading, error } = useSelector(
     (state: RootState) => state.tasks
@@ -17,6 +19,12 @@ export default function Tasks() {
   useEffect(() => {
     user?.token && dispatch(getTasks());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (!user?.token) {
+      navigate("/login");
+    }
+  }, [navigate, user]);
 
   return (
     <div className="flex flex-col gap-10 items-center flex-grow py-5 w-full sm:px-20">
