@@ -1,0 +1,32 @@
+services:
+  db:
+    image: postgres:14.7
+    environment:
+      POSTGRES_DB: todolist
+      POSTGRES_USER: teste
+      POSTGRES_PASSWORD: teste
+    ports:
+      - "4000:5432"
+    restart: always
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "teste", "-d", "todolist"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  api:
+    build: ./api
+    volumes:
+      - ./api:/app
+    ports:
+      - 5000:5000
+    depends_on:
+      - db
+  web:
+    build: ./web
+    command: npm run dev
+    volumes:
+      - ./web:/app
+    ports:
+      - 3000:3000
+    depends_on:
+      - api
