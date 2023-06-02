@@ -5,6 +5,7 @@ import { getTasks } from "../../store/tasks/tasksRequests";
 import Task from "../../components/Task";
 import { selectUser } from "../../store/user/userSlice";
 import InputAddTask from "../../components/InputAddTask";
+import Loader from "../../components/Loader";
 
 export default function Tasks() {
   const dispatch = useDispatch<AppDispatch>();
@@ -18,13 +19,21 @@ export default function Tasks() {
   }, [dispatch]);
 
   return (
-    <div className="flex flex-col gap-5 items-center flex-grow py-5 w-full">
+    <div className="flex flex-col gap-10 items-center flex-grow py-5 w-full sm:px-20">
       <InputAddTask />
-      {tasks.map((task) => (
-        <div key={task.id}>
-          <Task {...task} />
-        </div>
-      ))}
+      <div className="flex flex-grow flex-wrap gap-5 justify-center items-center">
+        {loading ? (
+          <Loader />
+        ) : tasks ? (
+          tasks.map((task) => (
+            <div key={task.id}>
+              <Task {...task} />
+            </div>
+          ))
+        ) : (
+          <p>Nenhuma tarefa criada :(</p>
+        )}
+      </div>
     </div>
   );
 }

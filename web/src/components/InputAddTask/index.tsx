@@ -11,16 +11,16 @@ export default function InputAddTask() {
   const dispatch = useDispatch<AppDispatch>();
 
   return (
-    <div className="flex gap-3">
+    <div className="flex flex-col md:h-12 md:flex-row gap-3">
       <input
         placeholder="Título"
         className="rounded p-2 outline-none"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
-      <input
+      <textarea
         placeholder="Descrição"
-        className="rounded p-2 outline-none"
+        className="rounded p-2 outline-none z-10"
         value={description}
         onChange={(e) => setDescription(e.target.value)}
       />
@@ -40,7 +40,7 @@ export default function InputAddTask() {
         </select>
       </div>
       <button
-        className="bg-green-500 p-2 rounded text-white"
+        className="flex items-center justify-center gap-2 bg-green-500 p-2 rounded text-white"
         onClick={() => {
           title &&
             description &&
@@ -48,7 +48,7 @@ export default function InputAddTask() {
             dispatch(addTask(title, description, priority));
         }}
       >
-        <PlusIcon className="h-5" />
+        <PlusIcon className="h-5" /> Adicionar
       </button>
     </div>
   );

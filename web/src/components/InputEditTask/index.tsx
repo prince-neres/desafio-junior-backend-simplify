@@ -40,44 +40,46 @@ export default function InputsEditTask({
   };
 
   return (
-    <div className="flex gap-3">
+    <>
       <input
         value={titleUpdated}
         onChange={(e) => setTitle(e.target.value)}
-        className="p-2 bg-white rounded outline-none"
+        className="p-2 outline-none text-center font-bold"
       />
-      <input
+      <textarea
         value={descriptionUpdated}
         onChange={(e) => setDescription(e.target.value)}
-        className="p-2 bg-white rounded outline-none"
+        className="w-full h-24 p-2 outline-none"
       />
-      <div className="flex justify-center items-center gap-3">
-        <label htmlFor="countries" className="block">
-          Prioridade:
-        </label>
-        <select
-          id="countries"
-          className="text-gray-900 rounded border-none outline-none block w-full p-3"
-          value={priorityUpdated}
-          onChange={(e) => setPriority(e.target.value)}
+      <div className="flex w-full justify-end gap-2">
+        <div className="flex justify-center items-center gap-2">
+          <label htmlFor="countries" className="block">
+            Prioridade:
+          </label>
+          <select
+            id="countries"
+            className="text-gray-900 rounded border-none outline-none block w-full p-2"
+            value={priorityUpdated}
+            onChange={(e) => setPriority(e.target.value)}
+          >
+            <option value="LOW">Baixa</option>
+            <option value="NORMAL">Média</option>
+            <option value="HIGH">Alta</option>
+          </select>
+        </div>
+        <button
+          className="p-2 rounded bg-blue-600 text-white"
+          onClick={handlePutTask}
         >
-          <option value="LOW">Baixa</option>
-          <option value="NORMAL">Média</option>
-          <option value="HIGH">Alta</option>
-        </select>
+          <BookmarkIcon className="h-5" />
+        </button>
+        <button
+          className="p-2 rounded bg-gray-600 text-white"
+          onClick={() => setEditMode(false)}
+        >
+          <XMarkIcon className="h-5" />
+        </button>
       </div>
-      <button
-        className="p-2 rounded bg-blue-600 text-white"
-        onClick={handlePutTask}
-      >
-        <BookmarkIcon className="h-5" />
-      </button>
-      <button
-        className="p-2 rounded bg-gray-600 text-white"
-        onClick={() => setEditMode(false)}
-      >
-        <XMarkIcon className="h-5" />
-      </button>
-    </div>
+    </>
   );
 }
