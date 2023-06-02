@@ -13,6 +13,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+
   api:
     build: ./api
     volumes:
@@ -21,11 +22,13 @@ services:
       - 5000:5000
     depends_on:
       - db
+    restart: on-failure
+
   web:
     build: ./web
-    command: npm run dev
     volumes:
-      - ./web:/app
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
     ports:
       - 3000:3000
     depends_on:
