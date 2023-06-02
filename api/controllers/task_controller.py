@@ -112,6 +112,41 @@ def put_task(id):
         return make_response(jsonify(error_data), 500)
 
 
+@api.route('/task/<int:id>', methods=['PATCH'])
+@jwt_required()
+@cross_origin(origins=Config.CLIENT_URL)
+def patch_status_task(id):
+    user = get_jwt_identity()
+    data = json.loads(request.data)
+    status = data.get('status')
+    new_status = 'COMPLETED' if status == 'PENDING' else 'PENDING'
+
+    task = Task.query.get_or_404(
+        id, description=f"Tarefa com id {id} não encontrada!")
+
+    if user.get('id') != task.user_id:
+        error_data = {
+            'message': 'Acesso negado!', 'code': 'ERROR'}
+        return make_response(jsonify(error_data), 400)
+
+    try:
+        task.status = new_status
+        task.date_updated = datetime.now()
+        task.update_task()
+
+        response_data = {
+            'message': 'Tarefa atualizada com sucesso!',
+            'code': 'SUCCESS'
+        }
+        return make_response(jsonify(response_data), 200)
+    except Exception as e:
+        error_data = {
+            'message': f'Erro ao atualizar tarefa: {str(e)}',
+            'code': 'ERROR'
+        }
+        return make_response(jsonify(error_data), 500)
+
+
 @api.route('/task/<int:id>', methods=['DELETE'])
 @jwt_required()
 @cross_origin(origins=Config.CLIENT_URL)

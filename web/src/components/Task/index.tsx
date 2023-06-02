@@ -16,8 +16,8 @@ export default function Task({
 
   return (
     <div
-      className={`flex flex-col gap-3 justify-center rounded items-center w-80 bg-white p-3 ${
-        status === "COMPLETED" ? "bg-gray-500" : null
+      className={`flex flex-col gap-3 justify-center rounded items-center w-80  p-3 ${
+        status === "COMPLETED" ? "bg-green-300" : "bg-white"
       }`}
     >
       {!editMode ? (
@@ -25,7 +25,9 @@ export default function Task({
           <div className="flex justify-center items-center">
             <input
               value={title}
-              className="p-2 w-full text-center bg-white font-bold"
+              className={`p-2 w-full text-center font-bold ${
+                status === "COMPLETED" ? "bg-green-300" : "bg-white"
+              }`}
               disabled
             />
             <div className="pr-2">
@@ -33,13 +35,15 @@ export default function Task({
             </div>
           </div>
           <textarea
-            className="p-2 w-full h-24 outline-none bg-white"
+            className={`p-2 w-full h-24 outline-none ${
+              status === "COMPLETED" ? "bg-green-300" : "bg-white"
+            }`}
             value={description}
             disabled
           />
 
           <div className="w-full flex justify-end items-center gap-2">
-            <StatusIcons status={status} />
+            <StatusIcons id={id} status={status} />
             <ActionButtons task_id={id} setEditMode={setEditMode} />
           </div>
         </>

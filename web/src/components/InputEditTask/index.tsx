@@ -44,12 +44,16 @@ export default function InputsEditTask({
       <input
         value={titleUpdated}
         onChange={(e) => setTitle(e.target.value)}
-        className="p-2 outline-none text-center font-bold"
+        className={`p-2 outline-none text-center font-bold ${
+          status === "COMPLETED" ? "bg-green-300" : "bg-white"
+        }`}
       />
       <textarea
         value={descriptionUpdated}
         onChange={(e) => setDescription(e.target.value)}
-        className="w-full h-24 p-2 outline-none"
+        className={`w-full h-24 p-2 outline-none ${
+          status === "COMPLETED" ? "bg-green-300" : "bg-white"
+        }`}
       />
       <div className="flex w-full justify-end gap-2">
         <div className="flex justify-center items-center gap-2">

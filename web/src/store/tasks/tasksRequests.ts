@@ -5,6 +5,7 @@ import {
   tasksSuccess,
   pushTask,
   editTask,
+  changeStatusTask,
   removeTask,
 } from "./tasksSlice";
 import api from "../../api/";
@@ -50,6 +51,18 @@ export const putTask =
         status,
       });
       dispatch(editTask(data.task));
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      toast.error(error.response.data.message);
+    }
+  };
+
+export const patchStatusTask =
+  (id: number, status: string) => async (dispatch: AppDispatch) => {
+    try {
+      const { data } = await api.patch(`/task/${id}`, { status });
+      const new_status = status === "PENDING" ? "COMPLETED" : "PENDING";
+      dispatch(changeStatusTask({ id, status: new_status }));
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       toast.error(error.response.data.message);

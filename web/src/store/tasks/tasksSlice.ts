@@ -37,6 +37,16 @@ const tasksSlice = createSlice({
         };
       }
     },
+    changeStatusTask: (
+      state,
+      action: PayloadAction<{ id: number; status: string }>
+    ) => {
+      const { id, status } = action.payload;
+      const taskIndex = state.tasks.findIndex((task) => task.id === id);
+      if (taskIndex !== -1) {
+        state.tasks[taskIndex].status = status;
+      }
+    },
     removeTask: (state, action: PayloadAction<number>) => {
       state.tasks = state.tasks.filter((task) => task.id !== action.payload);
     },
@@ -52,6 +62,7 @@ export const {
   tasksFail,
   pushTask,
   editTask,
+  changeStatusTask,
   removeTask,
   resetTasks,
 } = tasksSlice.actions;
