@@ -94,8 +94,15 @@ def put_task(id):
         task.date_updated = datetime.now()
         task.update_task()
 
+        task_schema = TaskSchema()
+
+        task_json = task_schema.dump(task)
+
         response_data = {
-            'message': 'Tarefa atualizada com sucesso!', 'code': 'SUCCESS'}
+            'task': task_json,
+            'message': 'Tarefa atualizada com sucesso!',
+            'code': 'SUCCESS'
+        }
         return make_response(jsonify(response_data), 200)
     except Exception as e:
         error_data = {
