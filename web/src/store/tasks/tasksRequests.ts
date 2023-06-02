@@ -1,6 +1,15 @@
 import { AppDispatch } from "..";
-import { tasksRequest, tasksFail, tasksSuccess } from "./tasksSlice";
+import {
+  tasksRequest,
+  tasksFail,
+  tasksSuccess,
+  pushTask,
+  editTask,
+  removeTask,
+} from "./tasksSlice";
 import api from "../../api/";
+import { TaskType } from "../../types";
+import { toast } from "react-toastify";
 
 export const getTasks = () => async (dispatch: AppDispatch) => {
   try {
@@ -12,3 +21,48 @@ export const getTasks = () => async (dispatch: AppDispatch) => {
     dispatch(tasksFail(error.response.data));
   }
 };
+
+export const addTask =
+  (title: string, description: string, priority: string) =>
+  async (dispatch: AppDispatch) => {
+    try {
+      const { data } = await api.post("/tasks", {
+        title,
+        description,
+        priority,
+      });
+      dispatch(pushTask(data.task));
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      toast.error(error.response.data.message);
+    }
+  };
+
+export const putTask =
+  ({ id, title, description, priority, status }: TaskType) =>
+  async (dispatch: AppDispatch) => {
+    try {
+      const { data } = await api.put(`/task/${id}`, {
+        id,
+        title,
+        description,
+        priority,
+        status,
+      });
+      dispatch(editTask(data.task));
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      toast.error(error.response.data.message);
+    }
+  };
+
+export const deleteTask =
+  (task_id: number) => async (dispatch: AppDispatch) => {
+    try {
+      const { data } = await api.delete(`/task/${task_id}`);
+      dispatch(removeTask(task_id));
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      toast.error(error.response.data.message);
+    }
+  };

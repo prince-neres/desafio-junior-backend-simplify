@@ -1,5 +1,6 @@
 import axios from "axios";
 import { logout } from "../store/user/userSlice";
+import { resetTasks } from "../store/tasks/tasksSlice";
 import store from "../store";
 import { toast } from "react-toastify";
 
@@ -32,6 +33,7 @@ api.interceptors.response.use(
       error.response?.data?.msg === "Token has expired"
     ) {
       store.dispatch(logout());
+      store.dispatch(resetTasks());
     }
     return Promise.reject(error);
   }

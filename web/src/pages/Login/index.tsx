@@ -21,14 +21,14 @@ export default function LoginForm() {
     <div className="flex flex-grow justify-center	items-center">
       <form onSubmit={handleSubmit} className="flex flex-col text-center">
         <input
-          className="p-3 rounded outline-none border-black border-2 text-black"
+          className="p-3 rounded outline-none text-black"
           type="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
         <input
-          className="mt-3 p-3 rounded outline-none border-black border-2 text-black"
+          className="mt-3 p-3 rounded outline-none text-black"
           type="password"
           placeholder="Senha"
           value={password}

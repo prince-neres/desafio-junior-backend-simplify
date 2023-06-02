@@ -30,21 +30,21 @@ export default function RegisterForm() {
     <div className="flex flex-grow justify-center	items-center">
       <form onSubmit={handleSubmit} className="flex flex-col text-center">
         <input
-          className="p-3 rounded outline-none border-black border-2 text-black"
+          className="p-3 rounded outline-none text-black"
           placeholder="Nome do usuário"
           type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
         <input
-          className="p-3 mt-3 rounded outline-none border-black border-2 text-black"
+          className="p-3 mt-3 rounded outline-none text-black"
           placeholder="Email"
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
         <input
-          className="p-3 mt-3 rounded outline-none border-black border-2 text-black"
+          className="p-3 mt-3 rounded outline-none text-black"
           placeholder="Senha"
           type="password"
           value={password}
@@ -52,7 +52,7 @@ export default function RegisterForm() {
         />
         <input
           placeholder="Confirmar Senha"
-          className="p-3 mt-3 rounded outline-none border-black border-2 text-black"
+          className="p-3 mt-3 rounded outline-none text-black"
           type="password"
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}

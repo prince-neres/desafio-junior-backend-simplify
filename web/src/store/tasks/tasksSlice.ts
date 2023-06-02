@@ -24,8 +24,35 @@ const tasksSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
+    pushTask: (state, action: PayloadAction<TaskType>) => {
+      state.tasks.push(action.payload);
+    },
+    editTask: (state, action: PayloadAction<TaskType>) => {
+      const { id, ...updatedFields } = action.payload;
+      const taskIndex = state.tasks.findIndex((task) => task.id === id);
+      if (taskIndex !== -1) {
+        state.tasks[taskIndex] = {
+          ...state.tasks[taskIndex],
+          ...updatedFields,
+        };
+      }
+    },
+    removeTask: (state, action: PayloadAction<number>) => {
+      state.tasks = state.tasks.filter((task) => task.id !== action.payload);
+    },
+    resetTasks: (state) => {
+      state.tasks = [];
+    },
   },
 });
 
-export const { tasksRequest, tasksSuccess, tasksFail } = tasksSlice.actions;
+export const {
+  tasksRequest,
+  tasksSuccess,
+  tasksFail,
+  pushTask,
+  editTask,
+  removeTask,
+  resetTasks,
+} = tasksSlice.actions;
 export default tasksSlice.reducer;

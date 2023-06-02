@@ -12,8 +12,6 @@ export default function Base() {
   useEffect(() => {
     if (user?.token) {
       navigate("/");
-    } else {
-      navigate("/login");
     }
   }, [navigate, user]);
 

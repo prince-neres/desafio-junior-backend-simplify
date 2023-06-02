@@ -19,9 +19,9 @@ export interface TaskType {
   description: string;
   priority: string;
   status: string;
-  created_at: string;
-  updated_at: string;
-  user_id: number;
+  created_at?: string;
+  updated_at?: string;
+  user_id?: number;
 }
 
 export interface TasksInfoType {
